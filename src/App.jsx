@@ -17,11 +17,11 @@ import {
 export default function App() {
  
   const router = createBrowserRouter([
-    {path : "/Home", element : <Home/>},
-    {path : "/Error", element :<NotFound/>},
+    {path : "/Signup", element :<Signup/>},
     {path : "/Login", element :<Login/>},
     {path : "/Loading", element :<Loading/>},
-    {path : "/", element :<Signup/>}
+    {path : "/Home", element : <Home/>},
+    {path : "*", element :<NotFound/>},
 
 
 

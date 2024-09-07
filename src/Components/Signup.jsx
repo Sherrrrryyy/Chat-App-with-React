@@ -1,6 +1,8 @@
+import { auth, createUserWithEmailAndPassword, db } from '../databse/firebaseconfig';
+import {  useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
-import { auth ,createUserWithEmailAndPassword} from '../databse/Firebase.config';
-
+import Swal from 'sweetalert2';
+import { doc, setDoc } from 'firebase/firestore';
 
 
 function Signup() {
@@ -8,16 +10,35 @@ function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+const navigate = useNavigate()
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        createUserWithEmailAndPassword(auth, name, email)
-            .then((response) => {
-                const user = response.user
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((res) => {
+                const user = res.user.uid;
                 console.log(user);
+                
+                const userObj = { name, email, user}
+                setDoc(doc(db, "users", user), userObj)
+                Swal.fire({
+                    title: 'Signup Complete',
+                    text: 'Do you want to continue',
+                    icon: 'success',
+                })
+                
+                navigate('/Login', { replace: true });
+
             })
             .catch((error) => {
-                alert(error.message)
-            })
+                Swal.fire({
+                    title: 'Something went wrong',
+                    text: 'Signup Again',
+                    icon: 'error',
+                })
+                alert(error.message);
+            });
+
 
     };
 
@@ -25,7 +46,7 @@ function Signup() {
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md border border-gray-200">
                 <h2 className="text-3xl font-semibold mb-8 text-gray-800 text-center">Sign Up</h2>
-                <form onSubmit={handleSubmit}>
+                <form >
                     <div className="mb-6">
                         <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="name">
                             Name
@@ -60,7 +81,6 @@ function Signup() {
                         </label>
                         <input
                             type="password"
-                            id="password"
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Create a password"
@@ -69,6 +89,7 @@ function Signup() {
                     </div>
                     <button
                         type="submit"
+                        onClick={handleSubmit}
                         className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
                     >
                         Sign Up

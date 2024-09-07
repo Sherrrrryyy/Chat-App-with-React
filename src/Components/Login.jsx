@@ -1,16 +1,24 @@
+import { signInWithEmailAndPassword } from 'firebase/auth/cordova';
 import React, { useState } from 'react';
+import {  useNavigate } from "react-router-dom";
+import { auth } from '../databse/firebaseconfig';
+
+
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+const navigate = useNavigate()
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log('Email:', email);
-    console.log('Password:', password);
+    signInWithEmailAndPassword(auth , email,password)
+    navigate('/Home', { replace: true });
+    // console.log('Email:', email);
+    
 
-localStorage.setItem("uid")
   };
 
   return (

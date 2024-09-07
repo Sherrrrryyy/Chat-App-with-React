@@ -1,5 +1,11 @@
 const Home = ()=>{
 
+
+
+
+
+  
+
 return(
     <>
     <div>
@@ -21,20 +27,19 @@ return(
             <a
               className="text-gray-300 hover:text-white transition duration-300"
             >
-              About
+              Chat
             </a>
           </li>
           <li>
             <a
               className="text-gray-300 hover:text-white transition duration-300"
             >
-              Contact
+              Location
             </a>
           </li>
         </ul>
       </div>
     </nav>
-    <h1>HOME PAGE</h1>
 </div>
     </>
 )
