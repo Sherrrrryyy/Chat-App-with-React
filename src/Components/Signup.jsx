@@ -1,6 +1,6 @@
 import { auth, createUserWithEmailAndPassword, db } from '../databse/firebaseconfig';
-import {  useNavigate } from "react-router-dom";
-import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { doc, setDoc } from 'firebase/firestore';
 
@@ -10,7 +10,17 @@ function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const checkUser = async () => {
+            const user = auth.currentUser;
+            if (user) {
+                navigate('/Login', { replace: true });
+            }
+        };
+        checkUser();
+    }, [navigate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,15 +28,15 @@ const navigate = useNavigate()
             .then((res) => {
                 const user = res.user.uid;
                 console.log(user);
-                
-                const userObj = { name, email, user}
+
+                const userObj = { name, email, user }
                 setDoc(doc(db, "users", user), userObj)
                 Swal.fire({
                     title: 'Signup Complete',
                     text: 'Do you want to continue',
                     icon: 'success',
                 })
-                
+
                 navigate('/Login', { replace: true });
 
             })
@@ -41,6 +51,18 @@ const navigate = useNavigate()
 
 
     };
+    const checkEmail = async () => {
+        const docRef = doc(db, "users", email);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            Swal.fire({
+                title: 'Email already exists',
+                text: 'Please login',
+                icon: 'error',
+            })
+            navigate('/Login', { replace: true });
+        }
+    }
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -69,7 +91,11 @@ const navigate = useNavigate()
                             type="email"
                             id='email'
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {
+                                setEmail(e.target.value)
+                                checkEmail()
+                            }
+                            }
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter your email"
                             required

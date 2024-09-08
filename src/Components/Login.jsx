@@ -22,7 +22,8 @@ const navigate = useNavigate()
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+
+<div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md border border-gray-200">
         <h2 className="text-3xl font-semibold mb-8 text-gray-800 text-center">Login</h2>
         <form onSubmit={handleSubmit}>
