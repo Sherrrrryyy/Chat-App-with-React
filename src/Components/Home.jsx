@@ -17,9 +17,9 @@ const Home = () => {
     const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach((doc) => {
       list.push(doc.data());
-      
-      
-      
+
+
+
     });
     console.log(list);
 
@@ -73,11 +73,21 @@ const Home = () => {
           </div>
         </nav>
       </div>
-<div>
-      {users.map(list =>{
-        return <div key={list.id} className="flex justify-evenly items-center p-4 border-b border-gray-200 text-lg flex font-medium">{list.name}<div className="text-lg flex font-medium">{list.email}</div></div>
-      })}
-</div>
+      <div>
+        {users.map(list => {
+          return (
+
+            <>
+              <div className="flex justify-between p-4 border-b border-gray-200">
+                <h1 key={list.id} className=" items-center  text-lg flex font-medium">{list.name}</h1>
+                {/* <p className="text-lg flex font-medium">{list.email}</p> */}
+                <button className="text-lg flex font-medium">Message</button>
+              </div>
+            </>
+
+          )
+        })}
+      </div>
 
     </>
   )
