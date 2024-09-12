@@ -13,7 +13,6 @@ const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     signInWithEmailAndPassword(auth , email,password)
     navigate('/Home', { replace: true });
     // console.log('Email:', email);

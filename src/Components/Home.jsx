@@ -1,8 +1,12 @@
 import { collection, getDocs } from "firebase/firestore"
 import React, { useEffect, useState } from 'react'
 import { db } from "../databse/firebaseconfig"
+import { useNavigate } from "react-router-dom"
 
 const Home = () => {
+
+  const navigate = useNavigate()
+
 
   const [users, setUsers] = useState([])
   // console.log(user, "users");
@@ -13,6 +17,8 @@ const Home = () => {
   }, [])
 
   const getUser = async () => {
+    let uid = localStorage.getItem('user')
+    
     const list = []
     const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach((doc) => {
@@ -21,14 +27,10 @@ const Home = () => {
 
 
     });
-    console.log(list);
+    // console.log(list);
 
     setUsers(list)
   }
-
-
-
-
 
 
   return (
@@ -42,25 +44,25 @@ const Home = () => {
 
             <ul className="flex space-x-4">
               <li>
-                <a
+                <button
                   className="text-gray-300 hover:text-white transition duration-300"
                 >
                   Home
-                </a>
+                </button>
               </li>
               <li>
-                <a
+                <button
                   className="text-gray-300 hover:text-white transition duration-300"
                 >
                   Chat
-                </a>
+                </button>
               </li>
               <li>
-                <a
+                <button
                   className="text-gray-300 hover:text-white transition duration-300"
                 >
                   Location
-                </a>
+                </button>
               </li>
               <li>
                 <button
@@ -81,7 +83,7 @@ const Home = () => {
               <div className="flex justify-between p-4 border-b border-gray-200">
                 <h1 key={list.id} className=" items-center  text-lg flex font-medium">{list.name}</h1>
                 {/* <p className="text-lg flex font-medium">{list.email}</p> */}
-                <button className="text-lg flex font-medium">Message</button>
+                <button onClick={()=>navigate('/Chat' , {state : {...list,myUid}})} className="text-lg flex font-medium">Message</button>
               </div>
             </>
 

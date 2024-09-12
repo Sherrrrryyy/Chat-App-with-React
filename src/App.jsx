@@ -5,6 +5,7 @@ import NotFound from './Components/NotFound';
 import Login from "./Components/Login"
 import Loading from './Components/Loading';
 import Signup from './Components/Signup';
+import Chat from './Components/Chat';
 
 
 
@@ -21,7 +22,8 @@ export default function App() {
     {path : "/Login", element :<Login/>},
     {path : "/Loading", element :<Loading/>},
     {path : "/Home", element : <Home/>},
-    {path : "/", element :<NotFound/>},
+    {path : "/Chat", element : <Chat/>},
+    {path : "*", element :<NotFound/>},
 
 
 

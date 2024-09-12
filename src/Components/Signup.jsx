@@ -2,7 +2,7 @@ import { auth, createUserWithEmailAndPassword, db } from '../databse/firebasecon
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 
 function Signup() {
@@ -28,6 +28,8 @@ function Signup() {
             .then((res) => {
                 const user = res.user.uid;
                 console.log(user);
+                const userId = localStorage.setItem("user", user)
+                console.log(userId);
 
                 const userObj = { name, email, user }
                 setDoc(doc(db, "users", user), userObj)
