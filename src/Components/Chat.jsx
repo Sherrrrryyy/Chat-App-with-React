@@ -2,7 +2,7 @@ import { addDoc, collection } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { db } from "../databse/firebaseconfig"
-// import { query, where, onSnapshot } from "firebase/firestore";
+import { query, where, onSnapshot } from "firebase/firestore";
 
 
 export default function Chat() {
@@ -14,38 +14,34 @@ export default function Chat() {
 
 
     useEffect(() => {
-        getMessages()
+       
+            const q = query(collection(db, "chat"), where(state.user, "==", true), where(myUid, "==", true));
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+              const list = []
+            querySnapshot.forEach((doc)=>{
+                list.push((doc.data()))
+            })
+
+            setChat(list)
+
+            });
+
+return unsubscribe()
+
     }, [])
 
 
-    const getMessages = () => {
-        // const q = query(collection(db, "chat"), where(state.uid, "==", true), where(state.myUid, "==", true));
-        // const unsubscribe = onSnapshot(q, (snapshot) => {
-        //   snapshot.docChanges().forEach((change) => {
-        //     if (change.type === "added") {
-        //         console.log("New city: ", change.doc.data());
-        //     }
-        //     if (change.type === "modified") {
-        //         console.log("Modified city: ", change.doc.data());
-        //     }
-        //     if (change.type === "removed") {
-        //         console.log("Removed city: ", change.doc.data());
-        //     }
-        //   });
-        // });
-    }
+const myUid = localStorage.getItem("user")
 
     const sendMessage = async ()=>{
         await addDoc(collection(db,"chat"), {
             message,
-            [state.id] : true
+            [state.user] : true,
+            [myUid] : true
 
         })
-setMessage()
+setMessage("")
     }
-
-
-
 
 
     return (
@@ -56,10 +52,17 @@ setMessage()
             {state.name}
         </div>
     </div>
+
     
     <div>
         
-
+{chat.map( list =>{
+       return (
+        <div className="flex justify-between p-4 border-b border-gray-200">
+        <h1  className=" items-center  text-lg flex font-medium">{list.message}</h1>
+      </div>
+       )
+})}
 
     </div>
 

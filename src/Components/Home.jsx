@@ -17,12 +17,14 @@ const Home = () => {
   }, [])
 
   const getUser = async () => {
-    let uid = localStorage.getItem('user')
-    
+    let userId = localStorage.getItem('user')
+console.log(userId);
+
     const list = []
     const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach((doc) => {
       list.push(doc.data());
+console.log(list);
 
 
 
@@ -39,7 +41,7 @@ const Home = () => {
         <nav className="bg-gray-800 p-4 shadow-lg">
           <div className="container mx-auto flex justify-between items-center">
             <div className="text-white text-2xl font-bold">
-              User List
+              Chat App
             </div>
 
             <ul className="flex space-x-4">
@@ -50,13 +52,7 @@ const Home = () => {
                   Home
                 </button>
               </li>
-              <li>
-                <button
-                  className="text-gray-300 hover:text-white transition duration-300"
-                >
-                  Chat
-                </button>
-              </li>
+
               <li>
                 <button
                   className="text-gray-300 hover:text-white transition duration-300"
@@ -83,7 +79,7 @@ const Home = () => {
               <div className="flex justify-between p-4 border-b border-gray-200">
                 <h1 key={list.id} className=" items-center  text-lg flex font-medium">{list.name}</h1>
                 {/* <p className="text-lg flex font-medium">{list.email}</p> */}
-                <button onClick={()=>navigate('/Chat' , {state : {...list,myUid}})} className="text-lg flex font-medium">Message</button>
+                <button onClick={() => navigate('/Chat', { state: { ...list } })} className="text-lg flex font-medium">Message</button>
               </div>
             </>
 

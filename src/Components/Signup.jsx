@@ -13,9 +13,11 @@ function Signup() {
     const navigate = useNavigate()
 
     useEffect(() => {
+
         const checkUser = async () => {
-            const user = auth.currentUser;
-            if (user) {
+            const userId = localStorage.setItem("user", user);
+            console.log(userId); 
+            if (userId) {
                 navigate('/Login', { replace: true });
             }
         };
@@ -59,10 +61,9 @@ function Signup() {
         if (docSnap.exists()) {
             Swal.fire({
                 title: 'Email already exists',
-                text: 'Please login',
+                text: 'Please login again',
                 icon: 'error',
             })
-            navigate('/Login', { replace: true });
         }
     }
 
