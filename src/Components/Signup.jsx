@@ -68,9 +68,9 @@ function Signup() {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center min-h-screen bg-red-800">
             <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md border border-gray-200">
-                <h2 className="text-3xl font-semibold mb-8 text-gray-800 text-center">Sign Up</h2>
+                <h2 className="text-3xl font-semibold mb-8 text-red-800 text-center">Sign Up</h2>
                 <form >
                     <div className="mb-6">
                         <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="name">
@@ -119,12 +119,12 @@ function Signup() {
                     <button
                         type="submit"
                         onClick={handleSubmit}
-                        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
+                        className="w-full bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-800 transition duration-300"
                     >
                         Sign Up
                     </button>
                     <div className="text-center mt-4">
-                        <p className="text-gray-600 text-sm">Already have an account? <a href="/login" className="text-blue-500 hover:underline">Log In</a></p>
+                        <p className="text-gray-600 text-sm">Already have an account? <a href="/login" className="text-red-500 hover:underline">Log In</a></p>
                     </div>
                 </form>
             </div>
