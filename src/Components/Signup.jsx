@@ -124,7 +124,7 @@ function Signup() {
                         Sign Up
                     </button>
                     <div className="text-center mt-4">
-                        <p className="text-gray-600 text-sm">Already have an account? <a href="/login" className="text-red-500 hover:underline">Log In</a></p>
+                        <p className="text-gray-600 text-sm">Already have an account? <a href="/Login" className="text-red-500 hover:underline">Log In</a></p>
                     </div>
                 </form>
             </div>

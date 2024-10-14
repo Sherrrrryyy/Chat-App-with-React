@@ -16,22 +16,22 @@ import {
 
 
 export default function App() {
- 
+
   const router = createBrowserRouter([
-    {path : "/", element :<Signup/>},
-    {path : "/Login", element :<Login/>},
-    {path : "/Loading", element :<Loading/>},
-    {path : "/Home", element : <Home/>},
-    {path : "/Chat", element : <Chat/>},
-    {path : "*", element :<NotFound/>},
+    { path: "/", element: <Signup /> },
+    { path: "/Login", element: <Login /> },
+    { path: "/Loading", element: <Loading /> },
+    { path: "/Home", element: <Home /> },
+    { path: "/Chat", element: <Chat /> },
+    { path: "*", element: <NotFound /> },
 
 
 
-  
+
   ])
-  
 
-return <RouterProvider router={router}/>
+
+  return <RouterProvider router={router} />
 
 }
 
