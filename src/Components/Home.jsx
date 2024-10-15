@@ -24,9 +24,7 @@ const Home = () => {
   }, [])
 
   const getUser = async () => {
-    let userId = localStorage.getItem('user')
-    // console.log(userId);
-
+   
     const list = []
     const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach((doc) => {

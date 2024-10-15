@@ -30,13 +30,13 @@ export default function Chat() {
         return () => unsubscribe();
     }, []);
 
+    let userId = localStorage.getItem('user')
 
     const sendMessage = async () => {
         await addDoc(collection(db, "chat"), {
             message,
             [state.user]: true,
             [myUid]: true,
-            sender: myUid,
             createdAt: Date.now()
         });
         setMessage("");
@@ -55,10 +55,10 @@ export default function Chat() {
                 {chat.map((msg, index) => (
                     <div
                         key={index}
-                        className={`flex ${msg.sender === myUid ? "justify-end" : "justify-start"} mb-4`}
+                        className={`flex ${myUid === true ? "justify-start" : "justify-end"} mb-4`}
                     >
                         <div
-                            className={`p-3 rounded-lg text-white max-w-xs ${msg.sender === myUid ? "bg-blue-500" : "bg-gray-500"
+                            className={`p-3 rounded-lg text-white max-w-xs ${myUid === true ? "bg-gray-500" : "bg-blue-500"
                                 }`}>
                             {msg.message}
                             <h1 className="text-gray-700">{moment(msg.createdAt).startOf('seconds').fromNow()}</h1>
