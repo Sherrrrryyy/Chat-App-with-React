@@ -15,7 +15,7 @@ function Login() {
   const handleSubmit = (e) => {
 
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email)
       .then((res) => {
         const user = res.user.uid;
         console.log(user);

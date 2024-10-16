@@ -16,7 +16,7 @@ export default function Chat() {
     const myUid = localStorage.getItem("user")
 
     useEffect(() => {
-        const q = query(collection(db, "chat"), where(state.user, "==", true), where(myUid, "==", true));
+        const q = query(collection(db, "chat"), where(state.user, "==", true));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             const list = [];
             querySnapshot.forEach((doc) => {
@@ -58,10 +58,10 @@ export default function Chat() {
                         className={`flex ${myUid === true ? "justify-start" : "justify-end"} mb-4`}
                     >
                         <div
-                            className={`p-3 rounded-lg text-white max-w-xs ${myUid === true ? "bg-gray-500" : "bg-blue-500"
+                            className={`p-3 rounded-lg text-white max-w-xs ${myUid === true ? "bg-gray-500" : "bg-red-500"
                                 }`}>
                             {msg.message}
-                            <h1 className="text-gray-700">{moment(msg.createdAt).startOf('seconds').fromNow()}</h1>
+                            <h1 className="text-white">{moment(msg.createdAt).startOf('seconds').fromNow()}</h1>
                         </div>
                     </div>
                 ))}
